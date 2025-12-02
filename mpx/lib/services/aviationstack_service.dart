@@ -25,6 +25,6 @@ class AviationStackService {
 
   Future<Map<String, dynamic>> loadTestFlightDataAsset() async {
     final jsonString = await rootBundle.loadString('assets/flight_data.json');
-    return jsonDecode(jsonString)['data'];
+    return jsonDecode(jsonString);
   }
 }
