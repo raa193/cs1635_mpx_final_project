@@ -1,17 +1,23 @@
-import "package:mpx/services/aviationstack_service.dart";
-import 'package:mpx/models/flight.dart';
+import "package:flutter/material.dart";
+import "package:mpx/viewmodels/flight_list_view_model.dart";
+import "package:mpx/views/flight_list_view.dart";
+import "package:provider/provider.dart";
 
-void main() async {
-  final avs = AviationStackService("23e2044ce62a590506bca8c42a60eef4");
+void main() => runApp(const App());
 
-  // try {
-  //   final data = await avs.getRawFlightInfo();
-  // } catch (e) {
-  //   print("Error: $e");
-  // }
+class App extends StatelessWidget {
+  const App({super.key});
 
-  List<Flight> flightData = avs.loadTestFlightDataAsset();
-
-  
-
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "Flight Tracker Application",
+      debugShowCheckedModeBanner: true,
+      theme: ThemeData(useMaterial3: true),
+      home: ChangeNotifierProvider(
+        create: (context) => FlightListViewModel(),
+        child: const FlightListView(),
+      ),
+    );
+  }
 }

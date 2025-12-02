@@ -1,3 +1,5 @@
+import 'package:mpx/utils/parsing_utils.dart';
+
 class DepartureData {
   final String? airport;
   final String? iata;
@@ -29,9 +31,9 @@ class DepartureData {
       terminal: json['terminal'],
       gate: json['gate'],
       delay: json['delay'],
-      estimatedDepart: DateTime.parse(json['estimated']),
-      scheduledDepart: DateTime.parse(json['scheduled']),
-      actualDepart: DateTime.parse(json['actual']),
+      estimatedDepart: safeParseDate(json['estimated']),
+      scheduledDepart: safeParseDate(json['scheduled']),
+      actualDepart: safeParseDate(json['actual']),
     );
   }
 }
