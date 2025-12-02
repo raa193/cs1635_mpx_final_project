@@ -1,0 +1,37 @@
+class DepartureData {
+  final String? airport;
+  final String? iata;
+  final String? icao;
+  final String? terminal;
+  final String? gate;
+  final int? delay;
+  final DateTime? scheduledDepart;
+  final DateTime? estimatedDepart;
+  final DateTime? actualDepart;
+
+  DepartureData({
+    required this.airport,
+    required this.iata,
+    required this.icao,
+    required this.terminal,
+    required this.gate,
+    required this.delay,
+    required this.scheduledDepart,
+    required this.estimatedDepart,
+    required this.actualDepart,
+  });
+
+  factory DepartureData.fromJson(Map<String, dynamic> json) {
+    return DepartureData(
+      airport: json['airport'],
+      iata: json['iata'],
+      icao: json['iaco'],
+      terminal: json['terminal'],
+      gate: json['gate'],
+      delay: json['delay'],
+      estimatedDepart: DateTime.parse(json['estimated']),
+      scheduledDepart: DateTime.parse(json['scheduled']),
+      actualDepart: DateTime.parse(json['actual']),
+    );
+  }
+}
