@@ -1,7 +1,7 @@
 class AirlineData {
-  final String name;
-  final String iata;
-  final String icao;
+  final String? name;
+  final String? iata;
+  final String? icao;
 
   AirlineData({
     required this.name,

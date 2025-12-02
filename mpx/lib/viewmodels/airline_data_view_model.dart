@@ -5,15 +5,15 @@ class AirlineDataViewModel {
 
   AirlineDataViewModel({required this.airlineData});
 
-  String getName() {
+  String? getName() {
     return airlineData.name;
   }
 
-  String getIata() {
+  String? getIata() {
     return airlineData.iata;
   }
 
-  String getIcao() {
+  String? getIcao() {
     return airlineData.icao;
   }
 }

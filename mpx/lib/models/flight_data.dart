@@ -1,7 +1,7 @@
 class FlightData {
-  String flightNum;
-  String iata;
-  String icao;
+  String? flightNum;
+  String? iata;
+  String? icao;
 
   FlightData({
     required this.flightNum,
