@@ -5,7 +5,6 @@ import 'package:mpx/models/flight_data.dart';
 
 class Flight {
   final DateTime? flightDate;
-  final String? aircraft;
   final String? flightStatus;
   final DepartureData departureData;
   final ArrivalData arrivalData;
@@ -14,7 +13,6 @@ class Flight {
 
   Flight({
     required this.flightDate,
-    required this.aircraft,
     required this.flightStatus,
     required this.departureData,
     required this.arrivalData,
@@ -30,7 +28,6 @@ class Flight {
 
     return Flight(
       flightDate: DateTime.parse(json['flight_date']),
-      aircraft: json['aircraft'],
       flightStatus: json['flight_status'],
       departureData: departure,
       arrivalData: arrival,
