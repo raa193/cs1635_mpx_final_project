@@ -19,17 +19,7 @@ class FlightList extends StatelessWidget {
         if (flights.isEmpty) {
           return const ListTile(title: Text("No flights"));
         }
-        return FlightTile(
-          airline: flight.airlineData.getName() ?? 'Unknown Airline',
-          arrivalAirport: flight.arrivalData.getIata() ?? '-',
-          departureAirport: flight.departureData.getIata() ?? '-',
-          arrivalTime: DateFormat(
-            'M/d/y\nHH:mm',
-          ).format(flight.arrivalData.getScheduledArrival() ?? DateTime(0000)),
-          departureTime: DateFormat(
-            'M/d/y\nHH:mm',
-          ).format(flight.departureData.getScheduledDepart() ?? DateTime(0000)),
-        );
+        return FlightTile(flight: flight);
       },
     );
   }

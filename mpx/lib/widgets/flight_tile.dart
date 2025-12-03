@@ -1,34 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:mpx/viewmodels/flight_view_model.dart';
 import 'package:intl/intl.dart';
+import 'package:mpx/views/flight_detail_view.dart';
 
 class FlightTile extends StatelessWidget {
-  final String airline;
+  final FlightViewModel flight;
 
-  final String arrivalAirport;
-  final String departureAirport;
-
-  final String arrivalTime;
-  final String departureTime;
-
-  const FlightTile({
-    super.key,
-    required this.airline,
-    required this.arrivalAirport,
-    required this.departureAirport,
-    required this.arrivalTime,
-    required this.departureTime,
-  });
-
+  const FlightTile({ super.key, required this.flight });
+  
+  @override
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(12),
       onTap: () {
-        print("FlightTile clicked!");
-        
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => FlightDetailView(flight: flight))
+        );
       },
       child: Container(
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.all(15),
         child: Column(
           children: [
             Row(
@@ -44,7 +34,9 @@ class FlightTile extends StatelessWidget {
                     child: Icon(Icons.flight, size: 20),
                   ),
                 ),
-                Text(textAlign: TextAlign.right, airline),
+                Text(textAlign: TextAlign.right,
+                    flight.airlineData.getName() ?? 'Unknown Airline'
+                ),
               ],
             ),
             Row(
@@ -54,15 +46,17 @@ class FlightTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      arrivalAirport,
+                      flight.arrivalData.getIata() ?? '-',
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 25,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      arrivalTime,
-                      style: TextStyle(fontSize: 10, color: Colors.grey),
+                      DateFormat(
+                        'M/d/y\nHH:mm',
+                      ).format(flight.arrivalData.getScheduledArrival() ?? DateTime(0000)),
+                      style: TextStyle(fontSize: 15, color: Colors.grey),
                     ),
                   ],
                 ),
@@ -70,16 +64,18 @@ class FlightTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      departureAirport,
+                      flight.departureData.getIata() ?? '-',
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 25,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
-                      departureTime,
+                      DateFormat(
+                        'M/d/y\nHH:mm',
+                      ).format(flight.departureData.getScheduledDepart() ?? DateTime(0000)),
                       textAlign: TextAlign.right,
-                      style: TextStyle(fontSize: 10, color: Colors.grey),
+                      style: TextStyle(fontSize: 15, color: Colors.grey),
                     ),
                   ],
                 ),
