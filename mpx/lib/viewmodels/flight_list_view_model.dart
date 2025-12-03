@@ -5,7 +5,7 @@ import 'package:mpx/viewmodels/flight_view_model.dart';
 class FlightListViewModel extends ChangeNotifier {
   List<FlightViewModel> flights = <FlightViewModel>[];
 
-  Future<void> fectchFlights(String apiKey) async {
+  Future<void> fetchFlights(String apiKey) async {
     final results = await FlightService().fetchFlights(apiKey);
 
     print("Fetched ${results.length} flights");

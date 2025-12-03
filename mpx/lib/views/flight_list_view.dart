@@ -25,7 +25,10 @@ class _FlightListViewState extends State<FlightListView> {
     final vm = Provider.of<FlightListViewModel>(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Flights")),
+      appBar: AppBar(
+        title: const Text("Flights", style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.blueAccent,
+      ),
       body: Column(
         children: [
           Container(

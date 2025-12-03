@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mpx/viewmodels/flight_view_model.dart';
 import 'package:intl/intl.dart';
+import 'package:mpx/widgets/flight_tile.dart';
 
 class FlightList extends StatelessWidget {
   final List<FlightViewModel> flights;
@@ -18,26 +19,16 @@ class FlightList extends StatelessWidget {
         if (flights.isEmpty) {
           return const ListTile(title: Text("No flights"));
         }
-
-        return ListTile(
-          contentPadding: const EdgeInsets.all(10),
-          leading: Text(
-            DateFormat('M/d/y\nHH:mm').format(
-              flight.departureData.getScheduledDepart() ?? DateTime(0000),
-            ),
-          ),
-          title: Text(flight.departureData.getIata() ?? '-'),
-          subtitle: Text(flight.arrivalData.getIata() ?? '-'),
-          trailing: Text(
-            DateFormat('M/d/y\nHH:mm').format(
-              flight.arrivalData.getScheduledArrival() ?? DateTime(0000),
-            ),
-          ),
-          onTap: () {
-            if (onFlightSelected != null) {
-              onFlightSelected!(flight);
-            }
-          },
+        return FlightTile(
+          airline: flight.airlineData.getName() ?? 'Unknown Airline',
+          arrivalAirport: flight.arrivalData.getIata() ?? '-',
+          departureAirport: flight.departureData.getIata() ?? '-',
+          arrivalTime: DateFormat(
+            'M/d/y\nHH:mm',
+          ).format(flight.arrivalData.getScheduledArrival() ?? DateTime(0000)),
+          departureTime: DateFormat(
+            'M/d/y\nHH:mm',
+          ).format(flight.departureData.getScheduledDepart() ?? DateTime(0000)),
         );
       },
     );
