@@ -5,14 +5,17 @@ class ArrivalDataViewModel {
 
   ArrivalDataViewModel({required this.arrival});
 
+  //Return Airport Name
   String? getAirport() {
     return arrival.airport;
   }
 
+  //Return Airport's IATA code (i.e. LAX, PIT, JFK)
   String? getIata() {
     return arrival.iata;
   }
 
+  //Return Airport's ICAO code (i.e. KLAX, KPIT, KJFK)
   String? getIcao() {
     return arrival.icao;
   }
