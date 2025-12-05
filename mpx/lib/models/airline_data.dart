@@ -6,7 +6,7 @@ class AirlineData {
   AirlineData({
     required this.name,
     required this.iata,
-    required this.icao
+    required this.icao,
   });
 
   factory AirlineData.fromJson(Map<String, dynamic> json) {

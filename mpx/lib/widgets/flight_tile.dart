@@ -41,9 +41,34 @@ class FlightTile extends StatelessWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              
               children: [
+
+                // ~~~~~~~~~~ DEPARTURE INFORMATION ~~~~~~~~~~
+
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      flight.departureData.getIata() ?? '-',
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      DateFormat(
+                        'M/d/y\nHH:mm',
+                      ).format(flight.departureData.getScheduledDepart() ?? DateTime(0000)),
+                      style: TextStyle(fontSize: 15, color: Colors.grey),
+                    ),
+                  ],
+                ),
+
+                // ~~~~~~~~~~ ARRIVAL INFORMATION ~~~~~~~~~~
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
                       flight.arrivalData.getIata() ?? '-',
@@ -57,25 +82,7 @@ class FlightTile extends StatelessWidget {
                         'M/d/y\nHH:mm',
                       ).format(flight.arrivalData.getScheduledArrival() ?? DateTime(0000)),
                       style: TextStyle(fontSize: 15, color: Colors.grey),
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      flight.departureData.getIata() ?? '-',
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      DateFormat(
-                        'M/d/y\nHH:mm',
-                      ).format(flight.departureData.getScheduledDepart() ?? DateTime(0000)),
                       textAlign: TextAlign.right,
-                      style: TextStyle(fontSize: 15, color: Colors.grey),
                     ),
                   ],
                 ),

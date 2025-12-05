@@ -11,7 +11,7 @@ class FlightListViewModel extends ChangeNotifier {
     print("Fetched ${results.length} flights");
 
     flights = results.map((flight) => FlightViewModel(flight: flight)).toList();
-}
+  }
 
   Future<void> fetchTestFlights() async {
     final results = await FlightService().fetchTestFlights();
