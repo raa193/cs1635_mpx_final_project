@@ -12,7 +12,8 @@ class FlightListView extends StatefulWidget {
 }
 
 class _FlightListViewState extends State<FlightListView> {
-  final TextEditingController _controller = TextEditingController();
+  final TextEditingController _departureController = TextEditingController();
+  final TextEditingController _arrivalController = TextEditingController();
 
   @override
   void initState() {
@@ -32,20 +33,52 @@ class _FlightListViewState extends State<FlightListView> {
       body: Column(
         children: [
           Container(
+            color: Colors.grey[300],
             padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.grey[300],
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: TextField(
-              controller: _controller,
-              decoration: const InputDecoration(
-                hintText: "Search",
-                border: InputBorder.none,
-              ),
+            child: Row(
+              children: [
+                Flexible(
+                  flex: 1, // proportion of space
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextField(
+                      controller: _departureController,
+                      decoration: const InputDecoration(
+                        hintText: "Departure Airport",
+                        border: InputBorder.none,
+                      ),
+                      onChanged: (value) => vm.setDepartureSearchQuery(value),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8), // space between fields
+                // Arrival TextField
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextField(
+                      controller: _arrivalController,
+                      decoration: const InputDecoration(
+                        hintText: "Arrival Airport",
+                        border: InputBorder.none,
+                      ),
+                      onChanged: (value) => vm.setArrivalSearchQuery(value),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          Expanded(child: FlightList(flights: vm.flights)),
+          Expanded(child: FlightList(flights: vm.filteredFlights)),
         ],
       ),
     );
