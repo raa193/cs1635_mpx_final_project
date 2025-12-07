@@ -13,35 +13,35 @@ class FlightTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-
+    
+    //Add ripple animation
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => FlightDetailView(flight: flight),
           ),
-          padding: EdgeInsets.all(15),
-          child: Column(
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  DecoratedBox(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.yellow,
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(1), // expands the box
-                      child: Icon(Icons.flight, size: 20),
-                    ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(bottom: BorderSide(color: const Color.fromARGB(255, 203, 202, 202), width: 2)),
+        ),
+        padding: EdgeInsets.all(15),
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.yellow,
                   ),
-                  SizedBox(width: 5),
-                  Text(
-                    textAlign: TextAlign.right,
-                    flight.airlineData.getName() ?? 'Unknown Airline',
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
+                  child: Padding(
+                    padding: EdgeInsets.all(1), // expands the box
+                    child: Icon(Icons.flight, size: 20),
                   ),
                 ),
                 SizedBox(width: 8),
@@ -61,7 +61,7 @@ class FlightTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      children:  [
+                      children: [
                         Text(
                           flight.departureData.getIata() ?? '-',
                           style: TextStyle(
@@ -77,9 +77,9 @@ class FlightTile extends StatelessWidget {
                           ),
                           child: Padding(
                             padding: EdgeInsets.all(1),
-                            child: Icon(Icons.flight_takeoff)
+                            child: Icon(Icons.flight_takeoff),
                           ),
-                        )
+                        ),
                       ],
                     ),
                     Text(
@@ -98,7 +98,7 @@ class FlightTile extends StatelessWidget {
                       '${t.status}: ${getLocalizedStatus(flight.getFlightStatus()?.capitalize(), t) ?? t.unknown}',
                       textAlign: TextAlign.left,
                       style: TextStyle(fontSize: 15, color: Colors.black87),
-                    )
+                    ),
                   ],
                 ),
 
@@ -115,7 +115,7 @@ class FlightTile extends StatelessWidget {
                           ),
                           child: Padding(
                             padding: EdgeInsets.all(1),
-                            child: Icon(Icons.flight_land)
+                            child: Icon(Icons.flight_land),
                           ),
                         ),
                         SizedBox(width: 8),
@@ -138,20 +138,14 @@ class FlightTile extends StatelessWidget {
                         flight.arrivalData.getScheduledArrival() ??
                             DateTime(0000),
                       ),
-                      Text(
-                        DateFormat('M/d/y\nHH:mm').format(
-                          flight.arrivalData.getScheduledArrival() ??
-                              DateTime(0000),
-                        ),
-                        style: TextStyle(fontSize: 15, color: Colors.grey),
-                        textAlign: TextAlign.right,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
+                      style: TextStyle(fontSize: 15, color: Colors.grey),
+                      textAlign: TextAlign.right,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
