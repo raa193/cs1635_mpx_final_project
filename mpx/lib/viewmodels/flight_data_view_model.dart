@@ -6,7 +6,7 @@ class FlightDataViewModel {
   FlightDataViewModel({required this.flightData});
 
   //Return the Flight No.
-  String? getFlightDate() {
+  String? getFlightNumber() {
     return flightData.flightNum;
   }
 

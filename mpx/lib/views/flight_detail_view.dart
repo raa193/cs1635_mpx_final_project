@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mpx/l10n/app_localizations.dart';
 import 'package:mpx/viewmodels/flight_view_model.dart';
 import 'package:intl/intl.dart';
 
@@ -9,10 +10,12 @@ class FlightDetailView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          '${flight.airlineData.getName() ?? 'Unknown Airline'} Flight No. ${flight.flightData.getFlightDate() ?? "Erm"}',
+          '${flight.airlineData.getName() ?? t.unknownAirline} ${t.flightNumber} ${flight.flightData.getFlightNumber() ?? "Erm"}',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.blueAccent,
@@ -57,9 +60,9 @@ class FlightDetailView extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        'Terminal ${flight.departureData.getTerminal() ?? '-'}',
+                        '${t.terminal} ${flight.departureData.getTerminal() ?? '-'}',
                       ),
-                      Text('Gate ${flight.departureData.getGate() ?? '-'}'),
+                      Text('${t.gate} ${flight.departureData.getGate() ?? '-'}'),
                       Text(
                         DateFormat('M/d/y\nHH:mm').format(
                           flight.departureData.getScheduledDepart() ??
@@ -97,9 +100,9 @@ class FlightDetailView extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        'Terminal ${flight.arrivalData.getTerminal() ?? '-'}',
+                        '${t.terminal} ${flight.arrivalData.getTerminal() ?? '-'}',
                       ),
-                      Text('Gate ${flight.arrivalData.getGate() ?? '-'}'),
+                      Text('${t.gate} ${flight.arrivalData.getGate() ?? '-'}'),
                       Text(
                         DateFormat('M/d/y\nHH:mm').format(
                           flight.arrivalData.getScheduledArrival() ??
@@ -117,12 +120,12 @@ class FlightDetailView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Flight Information: ",
+                  "${t.flightInformation}: ",
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
                 Text(
                   flight.arrivalData.getBaggage() ??
-                      "Baggage Information has not been announced yet...",
+                      t.baggageInformationUnannounced,
                 ),
               ],
             ),

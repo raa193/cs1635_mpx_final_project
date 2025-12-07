@@ -38,7 +38,7 @@ class FlightListViewModel extends ChangeNotifier {
           ) ??
           true;
       final flightStatus =
-          flight.getFlightStatus()?.toLowerCase() == _statusQuery.toLowerCase() || _statusQuery == 'all';
+          flight.getFlightStatus()?.toLowerCase() == _statusQuery.toLowerCase() || _statusQuery.toLowerCase() == 'all';
 
       return departureMatch &&
           arrivalMatch &&

@@ -1,3 +1,5 @@
+import 'package:mpx/l10n/app_localizations.dart';
+import 'package:mpx/utils/parsing_utils.dart';
 import 'package:mpx/viewmodels/flight_list_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:mpx/widgets/flight_list.dart';
@@ -25,10 +27,11 @@ class _FlightListViewState extends State<FlightListView> {
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<FlightListViewModel>(context);
+    final t = AppLocalizations.of(context)!;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Flights", style: TextStyle(color: Colors.white)),
+        title: Text(t.flights, style: const TextStyle(color: Colors.white)),
         backgroundColor: Colors.blueAccent,
       ),
       body: Column(
@@ -48,8 +51,8 @@ class _FlightListViewState extends State<FlightListView> {
                     ),
                     child: TextField(
                       controller: _departureController,
-                      decoration: const InputDecoration(
-                        hintText: "Departure Airport",
+                      decoration: InputDecoration(
+                        hintText: t.departureAirport,
                         border: InputBorder.none,
                       ),
                       onChanged: (value) => vm.setDepartureSearchQuery(value),
@@ -68,8 +71,8 @@ class _FlightListViewState extends State<FlightListView> {
                     ),
                     child: TextField(
                       controller: _arrivalController,
-                      decoration: const InputDecoration(
-                        hintText: "Arrival Airport",
+                      decoration: InputDecoration(
+                        hintText: t.arrivalAirport,
                         border: InputBorder.none,
                       ),
                       onChanged: (value) => vm.setArrivalSearchQuery(value),
@@ -109,8 +112,7 @@ class _FlightListViewState extends State<FlightListView> {
                                 (status) => DropdownMenuItem(
                                   value: status,
                                   child: Text(
-                                    status[0].toUpperCase() +
-                                        status.substring(1),
+                                    getLocalizedStatus(status, t).capitalize(),
                                   ),
                                 ),
                               )

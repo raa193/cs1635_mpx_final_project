@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mpx/l10n/app_localizations.dart';
 import 'package:mpx/utils/parsing_utils.dart';
 import 'package:mpx/viewmodels/flight_view_model.dart';
 import 'package:intl/intl.dart';
@@ -11,6 +12,8 @@ class FlightTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
@@ -43,7 +46,7 @@ class FlightTile extends StatelessWidget {
                 SizedBox(width: 8),
                 Text(
                   textAlign: TextAlign.right,
-                  flight.airlineData.getName() ?? 'Unknown Airline',
+                  flight.airlineData.getName() ?? t.unknownAirline,
                 ),
               ],
             ),
@@ -79,7 +82,7 @@ class FlightTile extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      flight.departureData.getAirport() ?? 'Unknown Airport',
+                      flight.departureData.getAirport() ?? t.unknownAirport,
                       style: TextStyle(fontSize: 15),
                       softWrap: true,
                     ),
@@ -91,7 +94,7 @@ class FlightTile extends StatelessWidget {
                       style: TextStyle(fontSize: 15, color: Colors.grey),
                     ),
                     Text(
-                      'Status: ${flight.getFlightStatus()?.capitalize() ?? 'Unknown'}',
+                      '${t.status}: ${getLocalizedStatus(flight.getFlightStatus()?.capitalize(), t) ?? t.unknown}',
                       textAlign: TextAlign.left,
                       style: TextStyle(fontSize: 15, color: Colors.black87),
                     )
@@ -125,7 +128,7 @@ class FlightTile extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      flight.arrivalData.getAirport() ?? 'Unknown Airport',
+                      flight.arrivalData.getAirport() ?? t.unknownAirport,
                       style: TextStyle(fontSize: 15),
                       softWrap: true,
                     ),
