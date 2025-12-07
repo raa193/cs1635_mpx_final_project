@@ -78,6 +78,40 @@ class _FlightListViewState extends State<FlightListView> {
               ],
             ),
           ),
+          const SizedBox(height: 2),
+          Container(
+            color: Colors.grey[300],
+            padding: const EdgeInsets.all(8),
+            child: Row(
+              children: [
+                Flexible(
+                  flex: 1, // proportion of space
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: DropdownButtonFormField(
+                      initialValue: 'All',
+                      items: ['All', 'Scheduled', 'Active', 'Landed', 'Cancelled', 'Incident', 'Diverted']
+                          .map((status) => DropdownMenuItem(
+                                value: status,
+                                child: Text(status[0].toUpperCase() + status.substring(1)),
+                              ))
+                          .toList(),
+                      onChanged: (value) { if (value != null) {
+                          vm.setStatusSearchQuery(value);
+                        } else {
+                          vm.setStatusSearchQuery('');
+                        }
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),         
           Expanded(child: FlightList(flights: vm.filteredFlights)),
         ],
       ),

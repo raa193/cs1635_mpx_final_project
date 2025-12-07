@@ -8,6 +8,7 @@ class FlightListViewModel extends ChangeNotifier {
 
   String _departureQuery = '';
   String _arrivalQuery = '';
+  String _statusQuery = '';
 
   void setDepartureSearchQuery(String query) {
     _departureQuery = query.toLowerCase();
@@ -19,20 +20,29 @@ class FlightListViewModel extends ChangeNotifier {
     _applyFilters();
   }
 
+  void setStatusSearchQuery(String query) {
+    _statusQuery = query.toLowerCase();
+    _applyFilters();
+  }
+
   void _applyFilters() {
     filteredFlights = flights.where((flight) {
       final departureMatch =
-          flight.departureData?.getAirport()?.toLowerCase().contains(
+          flight.departureData.getAirport()?.toLowerCase().contains(
             _departureQuery,
           ) ??
           true;
       final arrivalMatch =
-          flight.arrivalData?.getAirport()?.toLowerCase().contains(
+          flight.arrivalData.getAirport()?.toLowerCase().contains(
             _arrivalQuery,
           ) ??
           true;
+      final flightStatus =
+          flight.getFlightStatus()?.toLowerCase() == _statusQuery.toLowerCase() || _statusQuery == 'all';
 
-      return departureMatch && arrivalMatch; // both conditions must be met
+      return departureMatch &&
+          arrivalMatch &&
+          flightStatus; // both conditions must be met
     }).toList();
 
     notifyListeners();
