@@ -197,7 +197,7 @@ abstract class AppLocalizations {
   /// No description provided for @flightNumber.
   ///
   /// In en, this message translates to:
-  /// **'Flight Number'**
+  /// **'Flight No.'**
   String get flightNumber;
 
   /// No description provided for @terminal.
@@ -212,17 +212,65 @@ abstract class AppLocalizations {
   /// **'Gate'**
   String get gate;
 
-  /// No description provided for @flightInformation.
+  /// No description provided for @arrivalInformation.
   ///
   /// In en, this message translates to:
-  /// **'Flight Information'**
-  String get flightInformation;
+  /// **'Arrival Information'**
+  String get arrivalInformation;
 
   /// No description provided for @baggageInformationUnannounced.
   ///
   /// In en, this message translates to:
   /// **'Baggage Information has not been announced yet...'**
   String get baggageInformationUnannounced;
+
+  /// No description provided for @flightActiveMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This flight is currently underway!'**
+  String get flightActiveMessage;
+
+  /// No description provided for @flightDelayedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This flight has been delayed to'**
+  String get flightDelayedMessage;
+
+  /// No description provided for @flightDivertedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This flight is has been diverted.'**
+  String get flightDivertedMessage;
+
+  /// No description provided for @flightIncidentMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This flight has encountered a problem!'**
+  String get flightIncidentMessage;
+
+  /// No description provided for @flightLandedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This flight has now landed!'**
+  String get flightLandedMessage;
+
+  /// No description provided for @flightStatusUnknownMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The status of this flight is currently unknown.'**
+  String get flightStatusUnknownMessage;
+
+  /// No description provided for @flightScheduledMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This flight is scheduled to leave at'**
+  String get flightScheduledMessage;
+
+  /// No description provided for @flightCancelledMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This flight has been cancelled.'**
+  String get flightCancelledMessage;
 }
 
 class _AppLocalizationsDelegate

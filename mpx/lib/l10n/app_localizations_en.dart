@@ -57,7 +57,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get arrivalAirport => 'Arrival Airport';
 
   @override
-  String get flightNumber => 'Flight Number';
+  String get flightNumber => 'Flight No.';
 
   @override
   String get terminal => 'Terminal';
@@ -66,9 +66,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gate => 'Gate';
 
   @override
-  String get flightInformation => 'Flight Information';
+  String get arrivalInformation => 'Arrival Information';
 
   @override
   String get baggageInformationUnannounced =>
       'Baggage Information has not been announced yet...';
+
+  @override
+  String get flightActiveMessage => 'This flight is currently underway!';
+
+  @override
+  String get flightDelayedMessage => 'This flight has been delayed to';
+
+  @override
+  String get flightDivertedMessage => 'This flight is has been diverted.';
+
+  @override
+  String get flightIncidentMessage => 'This flight has encountered a problem!';
+
+  @override
+  String get flightLandedMessage => 'This flight has now landed!';
+
+  @override
+  String get flightStatusUnknownMessage =>
+      'The status of this flight is currently unknown.';
+
+  @override
+  String get flightScheduledMessage => 'This flight is scheduled to leave at';
+
+  @override
+  String get flightCancelledMessage => 'This flight has been cancelled.';
 }

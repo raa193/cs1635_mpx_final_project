@@ -16,9 +16,17 @@
     "flights": "Flights",
     "departureAirport": "Departure Airport",
     "arrivalAirport": "Arrival Airport",
-    "flightNumber": "Flight Number",
+    "flightNumber": "Flight No.",
     "terminal": "Terminal",
     "gate": "Gate",
-    "flightInformation": "Flight Information",
-    "baggageInformationUnannounced" : "Baggage Information has not been announced yet..."
+    "arrivalInformation": "Arrival Information",
+    "baggageInformationUnannounced" : "Baggage Information has not been announced yet...",
+    "flightActiveMessage": "This flight is currently underway!",
+    "flightDelayedMessage": "This flight has been delayed to",
+    "flightDivertedMessage": "This flight is has been diverted.",
+    "flightIncidentMessage": "This flight has encountered a problem!",
+    "flightLandedMessage": "This flight has now landed!",
+    "flightStatusUnknownMessage": "The status of this flight is currently unknown.",
+    "flightScheduledMessage": "This flight is scheduled to leave at",
+    "flightCancelledMessage": "This flight has been cancelled."
 }
