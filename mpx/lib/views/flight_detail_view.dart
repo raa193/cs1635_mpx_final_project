@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mpx/l10n/app_localizations.dart';
 import 'package:mpx/providers/locale_provider.dart';
+import 'package:mpx/utils/parsing_utils.dart';
 import 'package:mpx/viewmodels/flight_view_model.dart';
 import 'package:intl/intl.dart';
 import 'package:mpx/widgets/airplane_progress_bar.dart';
@@ -14,6 +15,22 @@ class FlightDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
+    String statusText;
+    String status = statusText = flight.getFlightStatus() ?? 'unknown';
+
+    if(status.toLowerCase() == 'scheduled') {
+      statusText = "${t.flightScheduledMessage} ${DateFormat('HH:mm').format(flight.departureData.getScheduledDepart() ?? DateTime(0000))}";
+    } else if (status.toLowerCase() == 'active') {
+      statusText = t.flightActiveMessage;
+    } else if (status.toLowerCase() == 'landed') {
+      statusText = t.flightLandedMessage;
+    } else if (status.toLowerCase() == 'cancelled') {
+      statusText = t.flightCancelledMessage;
+    } else if (status.toLowerCase() == 'diverted') {
+      statusText = t.flightDivertedMessage;
+    } else {
+      statusText = t.flightStatusUnknownMessage;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -31,9 +48,19 @@ class FlightDetailView extends StatelessWidget {
                 listen: false,
               ).setLocale(locale);
             },
-            itemBuilder: (context) => const [
-              PopupMenuItem(value: Locale('en'), child: Text('English')),
-              PopupMenuItem(value: Locale('es'), child: Text('Español')),
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                value: const Locale('en'),
+                child: Text(
+                  String.fromCharCode(0x1F1FA) + String.fromCharCode(0x1F1F8),
+                ),
+              ),
+              PopupMenuItem(
+                value: Locale('es'),
+                child: Text(
+                  String.fromCharCode(0x1F1EA) + String.fromCharCode(0x1F1F8),
+                ),
+              ),
             ],
           ),
         ],
@@ -105,19 +132,17 @@ class FlightDetailView extends StatelessWidget {
                   ),
                   Expanded(
                     flex: 3,
-                    child: 
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
-                          child: FlightProgressBar(
-                            departure:
-                                flight.departureData.getScheduledDepart() ??
-                                DateTime.now(),
-                            arrival:
-                                flight.arrivalData.getScheduledArrival() ??
-                                DateTime.now().add(Duration(hours: 2)),
-                          ),
-                        ),
-          
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: FlightProgressBar(
+                        departure:
+                            flight.departureData.getScheduledDepart() ??
+                            DateTime.now(),
+                        arrival:
+                            flight.arrivalData.getScheduledArrival() ??
+                            DateTime.now().add(Duration(hours: 2)),
+                      ),
+                    ),
                   ),
                   // ~~~~~~~~~~ ARRIVAL INFORMATION ~~~~~~~~~~
                   Expanded(
@@ -176,15 +201,115 @@ class FlightDetailView extends StatelessWidget {
                 ],
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            SizedBox(height: 20),
+            Text(
+              t.arrivalInformation,
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 1),
+            Text(statusText, style: TextStyle(fontSize: 18, color: getStatusColor(status))),
+            SizedBox(height: 10),
+            Row(
+              spacing: 5,
               children: [
-                Text(
-                  "${t.flightInformation}: ",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey, width: 1.0),
+                      borderRadius: BorderRadius.circular(13),
+                    ),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(2),
+                          child: Icon(Icons.luggage, size: 80),
+                        ),
+                        SizedBox(width: 5),
+                        Text(
+                          flight.arrivalData.getBaggage() ?? "-",
+                          style: TextStyle(fontSize: 30),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                Text(
-                  'Baggage: ${flight.arrivalData.getBaggage() ?? t.baggageInformationUnannounced}',
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey, width: 1.0),
+                      borderRadius: BorderRadius.circular(13),
+                    ),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(2),
+                          child: Icon(Icons.access_time, size: 80),
+                        ),
+                        SizedBox(width: 15),
+                        Text(
+                          DateFormat('HH:mm').format(
+                            flight.arrivalData.getActualArrival() ??
+                                flight.arrivalData.getEstimatedArrival() ??
+                                flight.arrivalData.getScheduledArrival() ??
+                                DateTime(0000),
+                          ),
+                          style: TextStyle(fontSize: 30),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 5),
+            Row(
+              spacing: 5,
+              children: [
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey, width: 1.0),
+                      borderRadius: BorderRadius.circular(13),
+                    ),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(2),
+                          child: Icon(Icons.place, size: 80),
+                        ),
+                        SizedBox(width: 5),
+                        Text(
+                          flight.arrivalData.getIata() ?? "-",
+                          style: TextStyle(fontSize: 30),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey, width: 1.0),
+                      borderRadius: BorderRadius.circular(13),
+                    ),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.all(2),
+                          child: Icon(Icons.flight, size: 80),
+                        ),
+                        SizedBox(width: 15),
+                        Text(
+                          flight.airlineData.getIcao() ?? "-",
+                          style: TextStyle(fontSize: 30),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),

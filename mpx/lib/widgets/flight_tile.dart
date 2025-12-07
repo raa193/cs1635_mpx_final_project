@@ -14,28 +14,6 @@ class FlightTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
 
-    // change color of status based on its value
-    Color getStatusColor(String? status) {
-      if (status == null) return Colors.grey;
-
-      switch (status.toLowerCase()) {
-        case 'delayed':
-          return const Color.fromARGB(255, 241, 180, 12);
-
-        case 'active':
-        case 'landed':
-          return Colors.green;
-
-        case "incident":
-        case 'cancelled':
-        case 'diverted':
-          return Colors.red;
-
-        default:
-          return Colors.black87;
-      }
-    }
-
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
