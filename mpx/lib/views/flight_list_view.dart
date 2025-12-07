@@ -4,6 +4,7 @@ import 'package:mpx/utils/parsing_utils.dart';
 import 'package:mpx/viewmodels/flight_list_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:mpx/widgets/flight_list.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
 class FlightListView extends StatefulWidget {
@@ -20,7 +21,7 @@ class _FlightListViewState extends State<FlightListView> {
   @override
   void initState() {
     super.initState();
-    String apiKey = const String.fromEnvironment('API_KEY', defaultValue: '');
+    String apiKey = dotenv.env['API_KEY'] ?? "";
     Provider.of<FlightListViewModel>(context, listen: false).fetchFlights(apiKey);
     // Provider.of<FlightListViewModel>(context, listen: false).fetchTestFlights();
   }

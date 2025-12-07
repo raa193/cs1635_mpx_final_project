@@ -5,8 +5,11 @@ import "package:mpx/viewmodels/flight_list_view_model.dart";
 import "package:mpx/views/flight_list_view.dart";
 import "package:flutter_localizations/flutter_localizations.dart";
 import "package:provider/provider.dart";
+import "package:flutter_dotenv/flutter_dotenv.dart";
 
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: ".env");
+
   runApp(
     MultiProvider(
       providers: [
@@ -17,7 +20,6 @@ void main() {
     ),
   );
 }
-
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -34,10 +36,7 @@ class App extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [
-        Locale('en'),
-        Locale('es'),
-      ],
+      supportedLocales: const [Locale('en'), Locale('es')],
       debugShowCheckedModeBanner: false,
       theme: ThemeData(useMaterial3: true),
       builder: (context, child) {
