@@ -21,8 +21,8 @@ class _FlightListViewState extends State<FlightListView> {
   void initState() {
     super.initState();
     String apiKey = const String.fromEnvironment('API_KEY', defaultValue: '');
-    // Provider.of<FlightListViewModel>(context, listen: false).fetchFlights(apiKey);
-    Provider.of<FlightListViewModel>(context, listen: false).fetchTestFlights();
+    Provider.of<FlightListViewModel>(context, listen: false).fetchFlights(apiKey);
+    // Provider.of<FlightListViewModel>(context, listen: false).fetchTestFlights();
   }
 
   @override
@@ -43,9 +43,9 @@ class _FlightListViewState extends State<FlightListView> {
                 listen: false,
               ).setLocale(locale);
             },
-            itemBuilder: (context) => const [
-              PopupMenuItem(value: Locale('en'), child: Text('English')),
-              PopupMenuItem(value: Locale('es'), child: Text('Español')),
+            itemBuilder: (context) => [
+              PopupMenuItem(value: const Locale('en'), child: Text(String.fromCharCode(0x1F1FA) + String.fromCharCode(0x1F1F8))),
+              PopupMenuItem(value: const Locale('es'), child: Text(String.fromCharCode(0x1F1EA) + String.fromCharCode(0x1F1F8))),
             ],
           ),
         ],
