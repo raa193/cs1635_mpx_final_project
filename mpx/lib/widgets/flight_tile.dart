@@ -10,103 +10,118 @@ class FlightTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => FlightDetailView(flight: flight),
+    return Material(
+      color: Colors.white,
+      child: InkWell(
+        splashColor: Colors.blue,
+        highlightColor: Colors.blue,
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => FlightDetailView(flight: flight),
+            ),
+          );
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border(
+              bottom: BorderSide(
+                color: const Color.fromARGB(255, 203, 202, 202),
+                width: 2,
+              ),
+            ),
           ),
-        );
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(bottom: BorderSide(color: const Color.fromARGB(255, 203, 202, 202), width: 2)),
-        ),
-        padding: EdgeInsets.all(15),
-        child: Column(
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                DecoratedBox(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.yellow,
+          padding: EdgeInsets.all(15),
+          child: Column(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  DecoratedBox(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.yellow,
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(1), // expands the box
+                      child: Icon(Icons.flight, size: 20),
+                    ),
                   ),
-                  child: Padding(
-                    padding: EdgeInsets.all(1), // expands the box
-                    child: Icon(Icons.flight, size: 20),
+                  SizedBox(width: 5),
+                  Text(
+                    textAlign: TextAlign.right,
+                    flight.airlineData.getName() ?? 'Unknown Airline',
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
-                ),
-                SizedBox(width: 5)
-                ,
-                Text(
-                  textAlign: TextAlign.right,
-                  flight.airlineData.getName() ?? 'Unknown Airline',
-                ),
-              ],
-            ),
-            SizedBox(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                ],
+              ),
+              SizedBox(height: 5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-              children: [
-                // ~~~~~~~~~~ DEPARTURE INFORMATION ~~~~~~~~~~
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      flight.departureData.getIata() ?? '-',
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
+                children: [
+                  // ~~~~~~~~~~ DEPARTURE INFORMATION ~~~~~~~~~~
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        flight.departureData.getIata() ?? '-',
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    Text(
-                      flight.departureData.getAirport() ?? 'Unknown Airport',
-                      style: TextStyle(fontSize: 15),
-                      softWrap: true,
-                    ),
-                    Text(
-                      DateFormat('M/d/y\nHH:mm').format(
-                        flight.departureData.getScheduledDepart() ??
-                            DateTime(0000),
+                      Text(
+                        flight.departureData.getAirport() ?? 'Unknown Airport',
+                        style: TextStyle(fontSize: 15),
+                        softWrap: true,
+                        maxLines: 2,
+                        overflow: TextOverflow.visible,
                       ),
-                      style: TextStyle(fontSize: 15, color: Colors.grey),
-                    ),
-                  ],
-                ),
+                      Text(
+                        DateFormat('M/d/y\nHH:mm').format(
+                          flight.departureData.getScheduledDepart() ??
+                              DateTime(0000),
+                        ),
+                        style: TextStyle(fontSize: 15, color: Colors.grey),
+                      ),
+                    ],
+                  ),
 
-                // ~~~~~~~~~~ ARRIVAL INFORMATION ~~~~~~~~~~
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text(
-                      flight.arrivalData.getIata() ?? '-',
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
+                  // ~~~~~~~~~~ ARRIVAL INFORMATION ~~~~~~~~~~
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        flight.arrivalData.getIata() ?? '-',
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    Text(
-                      flight.arrivalData.getAirport() ?? 'Unknown Airport',
-                      style: TextStyle(fontSize: 15),
-                      softWrap: true,
-                    ),
-                    Text(
-                      DateFormat('M/d/y\nHH:mm').format(
-                        flight.arrivalData.getScheduledArrival() ??
-                            DateTime(0000),
+                      Text(
+                        flight.arrivalData.getAirport() ?? 'Unknown Airport',
+                        style: TextStyle(fontSize: 15),
+                        softWrap: true,
+                        maxLines: 2,
+                        overflow: TextOverflow.visible,
                       ),
-                      style: TextStyle(fontSize: 15, color: Colors.grey),
-                      textAlign: TextAlign.right,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
+                      Text(
+                        DateFormat('M/d/y\nHH:mm').format(
+                          flight.arrivalData.getScheduledArrival() ??
+                              DateTime(0000),
+                        ),
+                        style: TextStyle(fontSize: 15, color: Colors.grey),
+                        textAlign: TextAlign.right,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
