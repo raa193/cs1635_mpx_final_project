@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:http/http.dart' as http;
-import 'package:mpx/models/flight.dart';
 
 class AviationStackService {
   final String apiKey;
@@ -10,8 +9,9 @@ class AviationStackService {
 
   Future<Map<String, dynamic>> getRawFlightInfo() async {
     final url = Uri.parse(
-      'http://api.aviationstack.com/v1/flights'
-      '?access_key=$apiKey',
+      'http://api.aviationstack.com/v1/flights?'
+      'access_key=$apiKey'
+      '&limit=200',
     );
 
     final response = await http.get(url);

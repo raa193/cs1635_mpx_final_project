@@ -18,6 +18,8 @@ class _FlightListViewState extends State<FlightListView> {
   @override
   void initState() {
     super.initState();
+    String apiKey = const String.fromEnvironment('API_KEY', defaultValue: '');
+    // Provider.of<FlightListViewModel>(context, listen: false).fetchFlights(apiKey);
     Provider.of<FlightListViewModel>(context, listen: false).fetchTestFlights();
   }
 
@@ -94,13 +96,28 @@ class _FlightListViewState extends State<FlightListView> {
                     ),
                     child: DropdownButtonFormField(
                       initialValue: 'All',
-                      items: ['All', 'Scheduled', 'Active', 'Landed', 'Cancelled', 'Incident', 'Diverted']
-                          .map((status) => DropdownMenuItem(
-                                value: status,
-                                child: Text(status[0].toUpperCase() + status.substring(1)),
-                              ))
-                          .toList(),
-                      onChanged: (value) { if (value != null) {
+                      items:
+                          [
+                                'All',
+                                'Scheduled',
+                                'Active',
+                                'Landed',
+                                'Cancelled',
+                                'Incident',
+                                'Diverted',
+                              ]
+                              .map(
+                                (status) => DropdownMenuItem(
+                                  value: status,
+                                  child: Text(
+                                    status[0].toUpperCase() +
+                                        status.substring(1),
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                      onChanged: (value) {
+                        if (value != null) {
                           vm.setStatusSearchQuery(value);
                         } else {
                           vm.setStatusSearchQuery('');
@@ -111,7 +128,7 @@ class _FlightListViewState extends State<FlightListView> {
                 ),
               ],
             ),
-          ),         
+          ),
           Expanded(child: FlightList(flights: vm.filteredFlights)),
         ],
       ),
