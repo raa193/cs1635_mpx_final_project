@@ -1,6 +1,5 @@
 import 'package:mpx/viewmodels/flight_list_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:mpx/services/flight_service.dart';
 import 'package:mpx/widgets/flight_list.dart';
 import 'package:provider/provider.dart';
 

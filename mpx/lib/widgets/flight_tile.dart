@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mpx/utils/parsing_utils.dart';
 import 'package:mpx/viewmodels/flight_view_model.dart';
 import 'package:intl/intl.dart';
 import 'package:mpx/views/flight_detail_view.dart';
@@ -39,8 +40,7 @@ class FlightTile extends StatelessWidget {
                     child: Icon(Icons.flight, size: 20),
                   ),
                 ),
-                SizedBox(width: 5)
-                ,
+                SizedBox(width: 8),
                 Text(
                   textAlign: TextAlign.right,
                   flight.airlineData.getName() ?? 'Unknown Airline',
@@ -56,12 +56,27 @@ class FlightTile extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      flight.departureData.getIata() ?? '-',
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Row(
+                      children:  [
+                        Text(
+                          flight.departureData.getIata() ?? '-',
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey, width: 1.0),
+                            borderRadius: BorderRadius.circular(7.0),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(1),
+                            child: Icon(Icons.flight_takeoff)
+                          ),
+                        )
+                      ],
                     ),
                     Text(
                       flight.departureData.getAirport() ?? 'Unknown Airport',
@@ -75,6 +90,11 @@ class FlightTile extends StatelessWidget {
                       ),
                       style: TextStyle(fontSize: 15, color: Colors.grey),
                     ),
+                    Text(
+                      'Status: ${flight.getFlightStatus()?.capitalize() ?? 'Unknown'}',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(fontSize: 15, color: Colors.black87),
+                    )
                   ],
                 ),
 
@@ -82,12 +102,27 @@ class FlightTile extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(
-                      flight.arrivalData.getIata() ?? '-',
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Row(
+                      children: [
+                        DecoratedBox(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey, width: 1.0),
+                            borderRadius: BorderRadius.circular(7.0),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(1),
+                            child: Icon(Icons.flight_land)
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          flight.arrivalData.getIata() ?? '-',
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                     Text(
                       flight.arrivalData.getAirport() ?? 'Unknown Airport',
