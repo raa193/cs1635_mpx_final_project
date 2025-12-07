@@ -13,16 +13,22 @@ class FlightList extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
 
-    return ListView.builder(
-      itemCount: flights.length,
-      itemBuilder: (context, index) {
-        final flight = flights[index];
-
-        if (flights.isEmpty) {
-          return ListTile(title: Text(t.noFlights));
-        }
-        return FlightTile(flight: flight);
+    return RefreshIndicator(
+      onRefresh: () async {
+        // Placeholder for refresh logic
+        await Future.delayed(const Duration(seconds: 1));
       },
+      child: ListView.builder(
+        itemCount: flights.length,
+        itemBuilder: (context, index) {
+          final flight = flights[index];
+
+          if (flights.isEmpty) {
+            return ListTile(title: Text(t.noFlights));
+          }
+          return FlightTile(flight: flight);
+        },
+      ),
     );
   }
 }

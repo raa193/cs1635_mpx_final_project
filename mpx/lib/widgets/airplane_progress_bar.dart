@@ -81,11 +81,14 @@ class _FlightProgressBarState extends State<FlightProgressBar> {
                 ),
               ),
               // Plane icon
-              Positioned(
-                left: width * progress - 12,
-                child: Transform.rotate(
-                  angle: math.pi / 2,
-                  child: Icon(Icons.flight, size: 24, color: Colors.grey),
+              Padding(
+                padding: EdgeInsets.only(left: 0, right: 0),
+                child: Positioned(
+                  left: width * progress,
+                  child: Transform.rotate(
+                    angle: math.pi / 2,
+                    child: Icon(Icons.local_airport, size: 24, color: Colors.grey),
+                  ),
                 ),
               ),
             ],

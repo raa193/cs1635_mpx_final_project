@@ -11,7 +11,7 @@ class AviationStackService {
     final url = Uri.parse(
       'http://api.aviationstack.com/v1/flights?'
       'access_key=$apiKey'
-      '&limit=200',
+      '&limit=100',
     );
 
     final response = await http.get(url);
