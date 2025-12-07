@@ -13,8 +13,29 @@ class FlightTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    
-    //Add ripple animation
+
+    // change color of status based on its value
+    Color getStatusColor(String? status) {
+      if (status == null) return Colors.grey;
+
+      switch (status.toLowerCase()) {
+        case 'delayed':
+          return const Color.fromARGB(255, 241, 180, 12);
+
+        case 'active':
+        case 'landed':
+          return Colors.green;
+
+        case "incident":
+        case 'cancelled':
+        case 'diverted':
+          return Colors.red;
+
+        default:
+          return Colors.black87;
+      }
+    }
+
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
@@ -26,7 +47,12 @@ class FlightTile extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          border: Border(bottom: BorderSide(color: const Color.fromARGB(255, 203, 202, 202), width: 2)),
+          border: Border(
+            bottom: BorderSide(
+              color: const Color.fromARGB(255, 203, 202, 202),
+              width: 2,
+            ),
+          ),
         ),
         padding: EdgeInsets.all(15),
         child: Column(
@@ -40,7 +66,7 @@ class FlightTile extends StatelessWidget {
                     color: Colors.yellow,
                   ),
                   child: Padding(
-                    padding: EdgeInsets.all(1), // expands the box
+                    padding: EdgeInsets.all(1), 
                     child: Icon(Icons.flight, size: 20),
                   ),
                 ),
@@ -95,9 +121,12 @@ class FlightTile extends StatelessWidget {
                       style: TextStyle(fontSize: 15, color: Colors.grey),
                     ),
                     Text(
-                      '${t.status}: ${getLocalizedStatus(flight.getFlightStatus()?.capitalize(), t) ?? t.unknown}',
+                      '${t.status}: ${getLocalizedStatus(flight.getFlightStatus()?.capitalize(), t)}',
                       textAlign: TextAlign.left,
-                      style: TextStyle(fontSize: 15, color: Colors.black87),
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: getStatusColor(flight.getFlightStatus()),
+                      ),
                     ),
                   ],
                 ),
