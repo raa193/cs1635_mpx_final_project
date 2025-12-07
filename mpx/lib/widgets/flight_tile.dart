@@ -13,7 +13,8 @@ class FlightTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-
+    
+    //Add ripple animation
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
