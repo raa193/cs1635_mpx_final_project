@@ -1,0 +1,23 @@
+{
+    "noFlights": "Sin vuelos",
+    "flightTrackerApplication": "Aplicación de Seguimiento de Vuelos",
+    "unknownAirline": "Aerolínea Desconocida",
+    "unknownAirport": "Aeropuerto Desconocido",
+    "status": "Estado",
+    "unknown": "Desconocido",
+    "all": "Toda",
+    "scheduled": "Programado",
+    "active": "Activo",
+    "landed": "Aterrizado",
+    "cancelled": "Cancelado",
+    "incident": "Incidente",
+    "diverted": "Desviado",
+    "flights": "Vuelos",
+    "departureAirport": "Aeropuerto de Salida",
+    "arrivalAirport": "Aeropuerto de Llegada",
+    "flightNumber": "N.º de vuelo",
+    "terminal": "Terminal",
+    "gate": "Puerta",
+    "flightInformation": "Información de Vuelo",
+    "baggageInformationUnannounced" : "La información sobre el equipaje aún no se ha anunciado..."
+}
