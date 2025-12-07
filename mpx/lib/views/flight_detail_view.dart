@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mpx/l10n/app_localizations.dart';
+import 'package:mpx/providers/locale_provider.dart';
 import 'package:mpx/viewmodels/flight_view_model.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class FlightDetailView extends StatelessWidget {
   final FlightViewModel flight;
@@ -19,6 +21,21 @@ class FlightDetailView extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.blueAccent,
+        actions: [
+          PopupMenuButton<Locale>(
+            icon: const Icon(Icons.language),
+            onSelected: (locale) {
+              Provider.of<LocaleProvider>(
+                context,
+                listen: false,
+              ).setLocale(locale);
+            },
+            itemBuilder: (context) => const [
+              PopupMenuItem(value: Locale('en'), child: Text('English')),
+              PopupMenuItem(value: Locale('es'), child: Text('Español')),
+            ],
+          ),
+        ],
       ),
       body: Container(
         padding: EdgeInsets.all(15),

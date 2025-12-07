@@ -1,4 +1,5 @@
 import 'package:mpx/l10n/app_localizations.dart';
+import 'package:mpx/providers/locale_provider.dart';
 import 'package:mpx/utils/parsing_utils.dart';
 import 'package:mpx/viewmodels/flight_list_view_model.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,21 @@ class _FlightListViewState extends State<FlightListView> {
       appBar: AppBar(
         title: Text(t.flights, style: const TextStyle(color: Colors.white)),
         backgroundColor: Colors.blueAccent,
+        actions: [
+          PopupMenuButton<Locale>(
+            icon: const Icon(Icons.language),
+            onSelected: (locale) {
+              Provider.of<LocaleProvider>(
+                context,
+                listen: false,
+              ).setLocale(locale);
+            },
+            itemBuilder: (context) => const [
+              PopupMenuItem(value: Locale('en'), child: Text('English')),
+              PopupMenuItem(value: Locale('es'), child: Text('Español')),
+            ],
+          ),
+        ],
       ),
       body: Column(
         children: [
