@@ -1,10 +1,9 @@
 # CS1635 MPX: Flight Tracker #
 **Theo Zervos, Ryan Armendariz-Lopez**
 
-For MPX, we decided to implement a flight tracker app that will alow users to search for specific flights and view data pertaining to them.
-When the app is opened, the user is presented with a list of active flights, with each tile of the list presenting:
+Our flight tracker app makes following flights simple and stress-free. Whether you’re waiting for a family member, planning your own trip, or just interested in aviation, the app lets you search by airline, flight number, or airport to view real-time departure and arrival information. Users can filter by flight status, track a flight’s current progress, and switch seamlessly between English and Spanish. Mobile-friendly and easy to use, the app consolidates all essential flight information in one place, so users can stay informed without juggling multiple websites.
 
-- Airline
-- Arrival Information: Airport, Time
-- Departure Information: Airport, Time
+APIs Used: AviationStack
+Dependencies Used: Provider, Flutter Localizations, INTL, HTTP
+
 
