@@ -34,12 +34,27 @@ class FlightDetailView extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        flight.departureData.getIata() ?? '-',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Row(
+                        children:  [
+                          Text(
+                            flight.departureData.getIata() ?? '-',
+                            style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          DecoratedBox(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey, width: 1.0),
+                              borderRadius: BorderRadius.circular(7.0),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(1),
+                              child: Icon(Icons.flight_takeoff)
+                            ),
+                          )
+                        ],
                       ),
                       Text(
                         'Terminal ${flight.departureData.getTerminal() ?? '-'}',
@@ -59,12 +74,27 @@ class FlightDetailView extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
-                        flight.arrivalData.getIata() ?? '-',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Row(
+                        children: [
+                          DecoratedBox(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey, width: 1.0),
+                              borderRadius: BorderRadius.circular(7.0),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(1),
+                              child: Icon(Icons.flight_land)
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          Text(
+                            flight.arrivalData.getIata() ?? '-',
+                            style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                       Text(
                         'Terminal ${flight.arrivalData.getTerminal() ?? '-'}',
