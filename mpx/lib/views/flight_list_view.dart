@@ -7,6 +7,7 @@ import 'package:mpx/widgets/flight_list.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mpx/widgets/status_dropdown.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class FlightListView extends StatefulWidget {
   const FlightListView({super.key});
