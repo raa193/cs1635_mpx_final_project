@@ -6,8 +6,6 @@ Our flight tracker app makes following flights simple and stress-free. Whether y
 APIs Used: AviationStack
 Dependencies Used: Provider, Flutter Localizations, INTL, HTTP
 
-![Alt text](Diagram.jpg)
-
 # Creating a `.env` File with an `API_KEY`
 
 Follow these steps to create and configure a `.env` file for your Flutter project.
@@ -51,6 +49,8 @@ To prevent accidentally committing your API key, add this to your `.gitignore`:
 .env
 .env.*
 ```
+
+![Alt text](Diagram.jpg)
 
 
 
