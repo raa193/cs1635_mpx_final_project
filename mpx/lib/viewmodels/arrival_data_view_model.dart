@@ -43,4 +43,8 @@ class ArrivalDataViewModel {
   DateTime? getActualArrival() {
     return arrival.actualArrival;
   }
+
+    String? getTimezone() {
+    return arrival.timezone;
+  }
 }
