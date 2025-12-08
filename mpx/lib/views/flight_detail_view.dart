@@ -135,8 +135,7 @@ class FlightDetailView extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: FlightProgressBar(
-                        departure: flight.departureData,
-                        arrival: flight.arrivalData,
+                        flight: flight,
                       ),
                     ),
                   ),

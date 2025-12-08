@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mpx/models/flight.dart';
 import 'package:mpx/viewmodels/departure_data_view_model.dart';
 import 'package:mpx/viewmodels/arrival_data_view_model.dart';
+import 'package:mpx/viewmodels/flight_view_model.dart';
 import 'dart:async';
 import 'dart:math' as math;
 import 'package:timezone/timezone.dart' as tz;
 
 class FlightProgressBar extends StatefulWidget {
-  final DepartureDataViewModel departure;
-  final ArrivalDataViewModel arrival;
+  final FlightViewModel flight;
 
-  const FlightProgressBar({
-    required this.departure,
-    required this.arrival,
-    super.key,
-  });
+  const FlightProgressBar({required this.flight, super.key});
 
   @override
   _FlightProgressBarState createState() => _FlightProgressBarState();
@@ -29,7 +26,7 @@ class _FlightProgressBarState extends State<FlightProgressBar> {
     super.initState();
     _updateProgress();
 
-    _timer = Timer.periodic(Duration(seconds: 30), (_) {
+    _timer = Timer.periodic(Duration(seconds: 5), (_) {
       setState(() {
         _updateProgress();
       });
@@ -37,30 +34,25 @@ class _FlightProgressBarState extends State<FlightProgressBar> {
   }
 
   void _updateProgress() {
-    final departLocation = tz.getLocation(
-      widget.departure.getTimezone() ?? 'UTC',
-    );
-    final arrivalLocation = tz.getLocation(
-      widget.arrival.getTimezone() ?? 'UTC',
-    );
+    if (widget.flight.getFlightStatus()?.toLowerCase() == 'landed') {
+      progress = 1;
+      return;
+    }
 
-    final departTime = tz.TZDateTime.parse(
-      departLocation,
-      widget.departure.getActualDepart()?.toIso8601String() ??
-      widget.departure.getEstimatedDepart()?.toIso8601String() ??
-      widget.departure.getScheduledDepart()?.toIso8601String() ??
-          DateTime.now().toIso8601String(),
-    ).toUtc();
+    DepartureDataViewModel departure = widget.flight.departureData;
+    ArrivalDataViewModel arrival = widget.flight.arrivalData;
 
-    final arrivalTime = tz.TZDateTime.parse(
-      arrivalLocation,
-      widget.arrival.getActualArrival()?.toIso8601String() ??
-      widget.arrival.getEstimatedArrival()?.toIso8601String() ??
-      widget.arrival.getScheduledArrival()?.toIso8601String() ??
-          DateTime.now()
-              .add(Duration(hours: 2))
-              .toIso8601String(),
-    ).toUtc();
+    final departTime =
+        departure.getActualDepart() ??
+        departure.getEstimatedDepart() ??
+        departure.getScheduledDepart() ??
+        DateTime.now();
+
+    final arrivalTime =
+        arrival.getActualArrival() ??
+        arrival.getEstimatedArrival() ??
+        arrival.getScheduledArrival() ??
+        DateTime.now();
 
     final now = DateTime.now().toUtc();
     final total = arrivalTime.difference(departTime).inSeconds;
@@ -94,7 +86,7 @@ class _FlightProgressBarState extends State<FlightProgressBar> {
             children: [
               // Background bar
               Container(
-                width: width,
+                width: width - 5,
                 height: 8,
                 decoration: BoxDecoration(
                   color: Colors.grey[300],
@@ -103,7 +95,7 @@ class _FlightProgressBarState extends State<FlightProgressBar> {
               ),
               // Progress bar
               Container(
-                width: width * progress,
+                width: (width - 5) * progress,
                 height: 8,
                 decoration: BoxDecoration(
                   color: Colors.blueAccent,
@@ -112,13 +104,13 @@ class _FlightProgressBarState extends State<FlightProgressBar> {
               ),
               // Plane icon
               Positioned(
-                left: width * progress,
+                left: (width - 20) * progress,
                 child: Transform.rotate(
                   angle: math.pi / 2,
                   child: Icon(
-                    Icons.local_airport,
+                    Icons.local_airport_outlined,
                     size: 24,
-                    color: Colors.blueGrey,
+                    color: Colors.black,
                   ),
                 ),
               ),

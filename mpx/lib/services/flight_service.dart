@@ -10,27 +10,47 @@ class FlightService extends ChangeNotifier {
     ).getRawFlightInfo();
 
     // getting flights into list
-    List<Flight> flights = await compute<List<dynamic>, List<Flight>>(_parseFlightsFromResponse, results['data']);
+    List<Flight> flights = await compute<List<dynamic>, List<Flight>>(
+      _parseFlightsFromResponse,
+      results['data'],
+    );
 
     final Map<String, dynamic> activeResults = await AviationStackService(
       apiKey,
     ).getRawFlightInfoWithStatus("active");
 
-    flights += await compute<List<dynamic>, List<Flight>>(_parseFlightsFromResponse, activeResults['data']);
+    flights += await compute<List<dynamic>, List<Flight>>(
+      _parseFlightsFromResponse,
+      activeResults['data'],
+    );
 
     final Map<String, dynamic> cancelledResults = await AviationStackService(
       apiKey,
     ).getRawFlightInfoWithStatus("cancelled");
 
-    flights += await compute<List<dynamic>, List<Flight>>(_parseFlightsFromResponse, cancelledResults['data']); 
+    flights += await compute<List<dynamic>, List<Flight>>(
+      _parseFlightsFromResponse,
+      cancelledResults['data'],
+    );
 
     final Map<String, dynamic> landedResults = await AviationStackService(
       apiKey,
     ).getRawFlightInfoWithStatus("landed");
 
-    flights += await compute<List<dynamic>, List<Flight>>(_parseFlightsFromResponse, landedResults['data']);
+    flights += await compute<List<dynamic>, List<Flight>>(
+      _parseFlightsFromResponse,
+      landedResults['data'],
+    );
 
-    return _removeDuplicateFlights(flights);
+    flights = _removeDuplicateFlights(flights);
+
+    flights.sort((a, b) {
+      return a.departureData.scheduledDepart!.compareTo(
+        b.departureData.scheduledDepart!,
+      );
+    });
+
+    return flights;
   }
 
   List<Flight> _removeDuplicateFlights(List<Flight> flights) {
