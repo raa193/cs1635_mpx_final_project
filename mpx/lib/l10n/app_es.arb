@@ -27,5 +27,6 @@
     "flightLandedMessage": "¡Este vuelo ya ha aterrizado!",
     "flightStatusUnknownMessage": "El estado de este vuelo es actualmente desconocido.",
     "flightScheduledMessage": "Este vuelo está programado para salir a las",
-    "flightCancelledMessage": "Este vuelo ha sido cancelado"
+    "flightCancelledMessage": "Este vuelo ha sido cancelado",
+    "loadingFlights": "Cargando Vuelos"
 }

@@ -12,7 +12,6 @@
     "cancelled": "Cancelled",
     "incident": "Incident",
     "diverted": "Diverted",
-    "noFlights": "No Flights",
     "flights": "Flights",
     "departureAirport": "Departure Airport",
     "arrivalAirport": "Arrival Airport",
@@ -28,5 +27,6 @@
     "flightLandedMessage": "This flight has now landed!",
     "flightStatusUnknownMessage": "The status of this flight is currently unknown.",
     "flightScheduledMessage": "This flight is scheduled to leave at",
-    "flightCancelledMessage": "This flight has been cancelled."
+    "flightCancelledMessage": "This flight has been cancelled.",
+    "loadingFlights": "Loading Flights"
 }

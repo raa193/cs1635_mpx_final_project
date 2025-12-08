@@ -271,6 +271,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This flight has been cancelled.'**
   String get flightCancelledMessage;
+
+  /// No description provided for @loadingFlights.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading Flights'**
+  String get loadingFlights;
 }
 
 class _AppLocalizationsDelegate

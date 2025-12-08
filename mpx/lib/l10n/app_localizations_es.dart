@@ -97,4 +97,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get flightCancelledMessage => 'Este vuelo ha sido cancelado';
+
+  @override
+  String get loadingFlights => 'Cargando Vuelos';
 }
