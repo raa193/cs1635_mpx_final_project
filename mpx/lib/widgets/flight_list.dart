@@ -15,7 +15,6 @@ class FlightList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    final ScrollController _scrollController = ScrollController();
 
     return RefreshIndicator(
       onRefresh: () async {
@@ -28,7 +27,6 @@ class FlightList extends StatelessWidget {
         );
       },
       child: ListView.builder(
-        controller: _scrollController,
         itemCount: flights.length,
         itemBuilder: (context, index) {
           final flight = flights[index];
