@@ -135,12 +135,8 @@ class FlightDetailView extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: FlightProgressBar(
-                        departure:
-                            flight.departureData.getScheduledDepart() ??
-                            DateTime.now(),
-                        arrival:
-                            flight.arrivalData.getScheduledArrival() ??
-                            DateTime.now().add(Duration(hours: 2)),
+                        departure: flight.departureData,
+                        arrival: flight.arrivalData,
                       ),
                     ),
                   ),
@@ -223,11 +219,16 @@ class FlightDetailView extends StatelessWidget {
                       children: [
                         Padding(
                           padding: EdgeInsets.all(2),
-                          child: Icon(Icons.luggage, size: 80),
+                          child: Icon(Icons.flight_land, size: 80),
                         ),
                         SizedBox(width: 5),
                         Text(
-                          flight.arrivalData.getBaggage() ?? "-",
+                          DateFormat('HH:mm').format(
+                            flight.arrivalData.getActualArrival() ??
+                                flight.arrivalData.getEstimatedArrival() ??
+                                flight.arrivalData.getScheduledArrival() ??
+                                DateTime(0000),
+                          ),
                           style: TextStyle(fontSize: 30),
                         ),
                       ],
@@ -245,16 +246,11 @@ class FlightDetailView extends StatelessWidget {
                       children: [
                         Padding(
                           padding: EdgeInsets.all(2),
-                          child: Icon(Icons.access_time, size: 80),
+                          child: Icon(Icons.place, size: 80),
                         ),
                         SizedBox(width: 15),
                         Text(
-                          DateFormat('HH:mm').format(
-                            flight.arrivalData.getActualArrival() ??
-                                flight.arrivalData.getEstimatedArrival() ??
-                                flight.arrivalData.getScheduledArrival() ??
-                                DateTime(0000),
-                          ),
+                          flight.arrivalData.getIata() ?? "-",
                           style: TextStyle(fontSize: 30),
                         ),
                       ],
@@ -278,11 +274,11 @@ class FlightDetailView extends StatelessWidget {
                       children: [
                         Padding(
                           padding: EdgeInsets.all(2),
-                          child: Icon(Icons.place, size: 80),
+                          child: Icon(Icons.local_airport, size: 80),
                         ),
                         SizedBox(width: 5),
                         Text(
-                          flight.arrivalData.getIata() ?? "-",
+                          flight.airlineData.getIcao() ?? "-",
                           style: TextStyle(fontSize: 30),
                         ),
                       ],
@@ -300,11 +296,11 @@ class FlightDetailView extends StatelessWidget {
                       children: [
                         Padding(
                           padding: EdgeInsets.all(2),
-                          child: Icon(Icons.flight, size: 80),
+                          child: Icon(Icons.luggage, size: 80),
                         ),
                         SizedBox(width: 15),
                         Text(
-                          flight.airlineData.getIcao() ?? "-",
+                          flight.arrivalData.getBaggage() ?? "-",
                           style: TextStyle(fontSize: 30),
                         ),
                       ],
