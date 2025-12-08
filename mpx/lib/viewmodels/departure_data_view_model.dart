@@ -43,4 +43,8 @@ class DepartureDataViewModel {
   DateTime? getActualDepart() {
     return departure.actualDepart;
   }
+
+  String? getTimezone() {
+    return departure.timezone;
+  }
 }
