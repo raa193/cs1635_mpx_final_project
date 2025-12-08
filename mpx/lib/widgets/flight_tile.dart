@@ -51,7 +51,7 @@ class FlightTile extends StatelessWidget {
                 SizedBox(width: 8),
                 Text(
                   textAlign: TextAlign.right,
-                  flight.airlineData.getName() ?? t.unknownAirline,
+                  "${flight.airlineData.getName() ?? t.unknownAirline} (${flight.airlineData.getIcao() ?? '-'})",
                 ),
               ],
             ),
@@ -138,6 +138,7 @@ class FlightTile extends StatelessWidget {
                       style: TextStyle(fontSize: 15, color: Colors.grey),
                       textAlign: TextAlign.right,
                     ),
+                    SizedBox(height: 20), // to align with departure status
                   ],
                 ),
               ],

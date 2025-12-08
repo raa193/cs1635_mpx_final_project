@@ -35,7 +35,7 @@ class FlightDetailView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          '${flight.airlineData.getName() ?? t.unknownAirline} ${t.flightNumber} ${flight.flightData.getFlightNumber() ?? "-"}',
+          '${flight.airlineData.getIcao() ?? t.unknownAirline} ${t.flightNumber} ${flight.flightData.getFlightNumber() ?? "-"}',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.blueAccent,

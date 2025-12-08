@@ -29,16 +29,16 @@ class FlightListViewModel extends ChangeNotifier {
 
   void _applyFilters() {
     filteredFlights = flights.where((flight) {
-      final departureMatch =
-          flight.departureData.getAirport()?.toLowerCase().contains(
-            _departureQuery,
-          ) ??
-          true;
-      final arrivalMatch =
-          flight.arrivalData.getAirport()?.toLowerCase().contains(
-            _arrivalQuery,
-          ) ??
-          true;
+      final departureMatch = (
+          (flight.departureData.getAirport()?.toLowerCase().contains(_departureQuery) ?? false)
+        ) || (
+          (flight.departureData.getIata()?.toLowerCase().contains(_departureQuery) ?? false)
+        );
+      final arrivalMatch = (
+          (flight.arrivalData.getAirport()?.toLowerCase().contains(_arrivalQuery) ?? false)
+        ) || (
+          (flight.arrivalData.getIata()?.toLowerCase().contains(_arrivalQuery) ?? false)
+        );  
       final flightStatus =
           flight.getFlightStatus()?.toLowerCase() ==
               _statusQuery.toLowerCase() ||

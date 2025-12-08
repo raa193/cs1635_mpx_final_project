@@ -5,7 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:mpx/utils/parsing_utils.dart';
 
 class StatusDropdown extends StatelessWidget {
-  const StatusDropdown({super.key});
+  StatusDropdown({super.key});
+  String lastFilter = "all";
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +34,7 @@ class StatusDropdown extends StatelessWidget {
               .toList(),
       onChanged: (value) {
         vm.setStatusSearchQuery(value ?? "all");
+        lastFilter = value ?? "all";
       },
     );
   }
