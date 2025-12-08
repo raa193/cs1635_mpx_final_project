@@ -10,6 +10,7 @@ class ArrivalData {
   final DateTime? scheduledArrival;
   final DateTime? estimatedArrival;
   final DateTime? actualArrival;
+  final String? timezone;
 
   ArrivalData({
     required this.airport,
@@ -21,6 +22,7 @@ class ArrivalData {
     required this.scheduledArrival,
     required this.estimatedArrival,
     required this.actualArrival,
+    required this.timezone,
   });
 
   factory ArrivalData.fromJson(Map<String, dynamic> json) {
@@ -34,6 +36,7 @@ class ArrivalData {
       estimatedArrival: safeParseDate(json['estimated']),
       scheduledArrival: safeParseDate(json['scheduled']),
       actualArrival: safeParseDate(json['actual']),
+      timezone: json['timezone'],
     );
   }
 }

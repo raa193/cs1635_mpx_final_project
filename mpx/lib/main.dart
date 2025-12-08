@@ -6,9 +6,11 @@ import "package:mpx/views/flight_list_view.dart";
 import "package:flutter_localizations/flutter_localizations.dart";
 import "package:provider/provider.dart";
 import "package:flutter_dotenv/flutter_dotenv.dart";
+import "package:timezone/data/latest.dart" as tz;
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
+  tz.initializeTimeZones();
 
   runApp(
     MultiProvider(

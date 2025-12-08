@@ -10,6 +10,7 @@ class DepartureData {
   final DateTime? scheduledDepart;
   final DateTime? estimatedDepart;
   final DateTime? actualDepart;
+  final String? timezone;
 
   DepartureData({
     required this.airport,
@@ -21,6 +22,7 @@ class DepartureData {
     required this.scheduledDepart,
     required this.estimatedDepart,
     required this.actualDepart,
+    required this.timezone,
   });
 
   factory DepartureData.fromJson(Map<String, dynamic> json) {
@@ -34,6 +36,7 @@ class DepartureData {
       estimatedDepart: safeParseDate(json['estimated']),
       scheduledDepart: safeParseDate(json['scheduled']),
       actualDepart: safeParseDate(json['actual']),
+      timezone: json['timezone'],
     );
   }
 }
