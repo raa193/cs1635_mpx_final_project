@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mpx/l10n/app_localizations.dart';
+import 'package:mpx/viewmodels/flight_list_view_model.dart';
 import 'package:mpx/viewmodels/flight_view_model.dart';
 import 'package:mpx/widgets/flight_tile.dart';
+import 'package:provider/provider.dart';
 
 class FlightList extends StatelessWidget {
   final List<FlightViewModel> flights;
@@ -16,7 +19,12 @@ class FlightList extends StatelessWidget {
     return RefreshIndicator(
       onRefresh: () async {
         // Placeholder for refresh logic
-        await Future.delayed(const Duration(seconds: 1));
+        await Provider.of<FlightListViewModel>(
+          context,
+          listen: false,
+        ).fetchFlights(
+          dotenv.env['API_KEY'] ?? 'ERROR_NO_API_KEY_PROVIDED',
+        );
       },
       child: ListView.builder(
         itemCount: flights.length,
