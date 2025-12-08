@@ -10,6 +10,8 @@ class FlightListViewModel extends ChangeNotifier {
   String _arrivalQuery = '';
   String _statusQuery = '';
 
+  bool isLoading = false;
+
   void setDepartureSearchQuery(String query) {
     _departureQuery = query.toLowerCase();
     _applyFilters();
@@ -38,7 +40,9 @@ class FlightListViewModel extends ChangeNotifier {
           ) ??
           true;
       final flightStatus =
-          flight.getFlightStatus()?.toLowerCase() == _statusQuery.toLowerCase() || _statusQuery.toLowerCase() == 'all';
+          flight.getFlightStatus()?.toLowerCase() ==
+              _statusQuery.toLowerCase() ||
+          _statusQuery.toLowerCase() == 'all';
 
       return departureMatch &&
           arrivalMatch &&
@@ -49,12 +53,18 @@ class FlightListViewModel extends ChangeNotifier {
   }
 
   Future<void> fetchFlights(String apiKey) async {
+    isLoading = true;
+    notifyListeners();
+
     final results = await FlightService().fetchFlights(apiKey);
 
     print("Fetched ${results.length} flights");
 
     flights = results.map((flight) => FlightViewModel(flight: flight)).toList();
     filteredFlights = List.from(flights);
+    
+    isLoading = false;
+    notifyListeners();
   }
 
   Future<void> fetchTestFlights() async {
