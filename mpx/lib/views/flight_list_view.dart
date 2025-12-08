@@ -5,6 +5,7 @@ import 'package:mpx/viewmodels/flight_list_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:mpx/widgets/flight_list.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:mpx/widgets/status_dropdown.dart';
 import 'package:provider/provider.dart';
 
 class FlightListView extends StatefulWidget {
@@ -21,8 +22,14 @@ class _FlightListViewState extends State<FlightListView> {
   @override
   void initState() {
     super.initState();
-    String apiKey = dotenv.env['API_KEY'] ?? "";
-    Provider.of<FlightListViewModel>(context, listen: false).fetchFlights(apiKey);
+    String apiKey = dotenv.env['API_KEY'] ?? 'ERROR_NO_API_KEY_PROVIDED';
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<FlightListViewModel>(
+        context,
+        listen: false,
+      ).fetchFlights(apiKey);
+    });
     // Provider.of<FlightListViewModel>(context, listen: false).fetchTestFlights();
   }
 
@@ -45,8 +52,18 @@ class _FlightListViewState extends State<FlightListView> {
               ).setLocale(locale);
             },
             itemBuilder: (context) => [
-              PopupMenuItem(value: const Locale('en'), child: Text(String.fromCharCode(0x1F1FA) + String.fromCharCode(0x1F1F8))),
-              PopupMenuItem(value: const Locale('es'), child: Text(String.fromCharCode(0x1F1EA) + String.fromCharCode(0x1F1F8))),
+              PopupMenuItem(
+                value: const Locale('en'),
+                child: Text(
+                  String.fromCharCode(0x1F1FA) + String.fromCharCode(0x1F1F8),
+                ),
+              ),
+              PopupMenuItem(
+                value: const Locale('es'),
+                child: Text(
+                  String.fromCharCode(0x1F1EA) + String.fromCharCode(0x1F1F8),
+                ),
+              ),
             ],
           ),
         ],
@@ -113,41 +130,32 @@ class _FlightListViewState extends State<FlightListView> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: DropdownButtonFormField(
-                      initialValue: 'All',
-                      items:
-                          [
-                                'All',
-                                'Scheduled',
-                                'Active',
-                                'Landed',
-                                'Cancelled',
-                                'Incident',
-                                'Diverted',
-                              ]
-                              .map(
-                                (status) => DropdownMenuItem(
-                                  value: status,
-                                  child: Text(
-                                    getLocalizedStatus(status, t).capitalize(),
-                                  ),
-                                ),
-                              )
-                              .toList(),
-                      onChanged: (value) {
-                        if (value != null) {
-                          vm.setStatusSearchQuery(value);
-                        } else {
-                          vm.setStatusSearchQuery('');
-                        }
-                      },
-                    ),
+                    child: StatusDropdown(),
                   ),
                 ),
               ],
             ),
           ),
-          Expanded(child: FlightList(flights: vm.filteredFlights)),
+          Expanded(
+            child: Consumer<FlightListViewModel>(
+              builder: (context, vm, child) {
+                if (vm.isLoading) {
+                  return Center(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 10),
+                        Text(t.loadingFlights, style: const TextStyle(fontSize: 20)),
+                        SizedBox(height: 10),
+                        CircularProgressIndicator(),
+                      ],
+                    ),
+                  );
+                } else {
+                  return FlightList(flights: vm.filteredFlights);
+                }
+              },
+            ),
+          ),
         ],
       ),
     );
