@@ -87,11 +87,6 @@ class FlightTile extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      flight.departureData.getAirport() ?? t.unknownAirport,
-                      style: TextStyle(fontSize: 15),
-                      softWrap: true,
-                    ),
-                    Text(
                       DateFormat('M/d/y\nHH:mm').format(
                         flight.departureData.getScheduledDepart() ??
                             DateTime(0000),
@@ -134,11 +129,6 @@ class FlightTile extends StatelessWidget {
                           ),
                         ),
                       ],
-                    ),
-                    Text(
-                      flight.arrivalData.getAirport() ?? t.unknownAirport,
-                      style: TextStyle(fontSize: 15),
-                      softWrap: true,
                     ),
                     Text(
                       DateFormat('M/d/y\nHH:mm').format(
